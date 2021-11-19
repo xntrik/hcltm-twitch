@@ -18,6 +18,55 @@ threatmodel "Vending Machine" {
     description = "Users who put money in the machine want a goodie"
   }
 
+  usecase {
+    description = "The owner of the vending machine can get his money out of it"
+  }
+
+  usecase {
+    description = "The staff members can top up the vending machine"
+  }
+
+  usecase {
+    description = "Vending machine submits status updates via a 4g modem"
+  }
+
+  information_asset "Goodie database" {
+    description = "This maintains the mapping of how expensive items are in the vending machine, and how many items are in there."
+    information_classification = "Public"
+  }
+
+  information_asset "Transaction history" {
+    description = "This keeps a log of all the vending purchases"
+    information_classification = "Confidential"
+  }
+
+  threat {
+    description = "Machine is physically breached to get money out"
+    proposed_control {
+      description = "Vending machine is in a well lit area with surveillance"
+      implemented = true
+    }
+    proposed_control {
+      description = "Vending machine's cash box is made of steel"
+      implemented = true
+    }
+    impacts = ["Integrity", "Availability"]
+  }
+
+  threat {
+    description = <<EOF
+Machine's transaction log is tampered
+
+This could assist with someone who is trying to steal money and hide their tracks.
+EOF
+    impacts = ["Integrity"]
+
+    proposed_control {
+      description = "Integrity in the db??"
+      implemented = false
+    }
+  }
+
   data_flow_diagram {
     trust_zone "Inside vending machine" {
       process "User pays vending machine" {}
